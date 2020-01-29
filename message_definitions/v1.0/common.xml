@@ -1068,6 +1068,21 @@
         <description>Yaw controlled by RC input.</description>
       </entry>
     </enum>
+    <enum name="MISSION_YAW_MODE">
+      <description>Default vehicle yaw for multirotors in missions (if waypoint yaw is set as NaN).</description>
+      <entry value="0" name="MISSION_YAW_MODE_WAYPOINT">
+        <description>Vehicle front points towards next waypoint.</description>
+      </entry>
+      <entry value="1" name="MISSION_YAW_MODE_HOME">
+        <description>Vehicle front points towards home.</description>
+      </entry>
+      <entry value="2" name="MISSION_YAW_MODE_AWAY_HOME">
+        <description>Vehicle front points away from home (rear faces home location).</description>
+      </entry>
+      <entry value="3" name="MISSION_YAW_MODE_TRAJECTORY">
+        <description>Vehicle front points along vehicle trajectory.</description>
+      </entry>
+    </enum>
     <!-- The MAV_CMD enum entries describe either: -->
     <!--  * the data payload of mission items (as used in the MISSION_ITEM and MISSION_ITEM_INT messages) -->
     <!--  * the data payload of mavlink commands (as used in the COMMAND_INT and COMMAND_LONG messages) -->
@@ -1857,6 +1872,10 @@
         <param index="5">Reserved</param>
         <param index="6">Reserved</param>
         <param index="7">Reserved</param>
+      </entry>
+      <entry value="420" name="MAV_CMD_SET_YAW_MODE" hasLocation="false" isDestination="false">
+        <description>Set the system yaw/heading mode that will be used if the waypoint yaw not explicitly specified (e.g. MAV_CMD_NAV_WAYPOINT.param4=Nan). For example, the setting might cause the vehicle to yaw towards the waypoint, or home, etc.</description>
+        <param index="1" label="Yaw Mode" enum="MISSION_YAW_MODE">System default yaw behaviour in mission mode.</param>
       </entry>
       <entry value="500" name="MAV_CMD_START_RX_PAIR" hasLocation="false" isDestination="false">
         <description>Starts receiver pairing.</description>
