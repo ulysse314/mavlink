@@ -1069,7 +1069,7 @@
       </entry>
     </enum>
     <enum name="MISSION_YAW_MODE">
-      <description>Default vehicle yaw for multirotors in missions (if waypoint yaw is set as NaN).</description>
+      <description>Default vehicle yaw in missions (used when mission item yaw is not explicitly set/is set to NaN). Applies to multirotors (and other vehicles that allow independent control over yaw and direction of travel).</description>
       <entry value="0" name="MISSION_YAW_MODE_WAYPOINT">
         <description>Vehicle front points towards next waypoint.</description>
       </entry>
@@ -1081,6 +1081,11 @@
       </entry>
       <entry value="3" name="MISSION_YAW_MODE_TRAJECTORY">
         <description>Vehicle front points along vehicle trajectory.</description>
+      </entry>
+    <enum name="MISSION_YAW_MODE_PERSISTENCE">
+      <description>The persistance/lifetime of the default mission yaw mode setting (MISSION_YAW_MODE), as set with MAV_CMD_SET_YAW_MODE.</description>
+      <entry value="0" name="MISSION_YAW_MODE_PERSISTENCE_PERMANENT">
+        <description>Mission yaw mode setting is permanent. The yaw mode setting persists across reboots until explicitly set to some other mode.</description>
       </entry>
     </enum>
     <!-- The MAV_CMD enum entries describe either: -->
@@ -1874,8 +1879,9 @@
         <param index="7">Reserved</param>
       </entry>
       <entry value="420" name="MAV_CMD_SET_YAW_MODE" hasLocation="false" isDestination="false">
-        <description>Set the system yaw/heading mode that will be used if the waypoint yaw not explicitly specified (e.g. MAV_CMD_NAV_WAYPOINT.param4=Nan). For example, the setting might cause the vehicle to yaw towards the waypoint, or home, etc.</description>
+        <description>Set the default mission yaw mode (e.g. yaw: towards next waypoint, towards home, etc.). This is the yaw mode that will be used if yaw is not explicitly specified in a mission item (e.g. MAV_CMD_NAV_WAYPOINT.param4=Nan). Yaw modes only apply on vehicles that support independent control over direction of movement and the direction the vehicle is facing (e.g. multirotor).</description>
         <param index="1" label="Yaw Mode" enum="MISSION_YAW_MODE">System default yaw behaviour in mission mode.</param>
+        <param index="2" label="Persistence" enum="MISSION_YAW_MODE_PERSISTENCE">Persistence of the commanded mode setting. By default the setting is permanent until explicitly changed.</param>
       </entry>
       <entry value="500" name="MAV_CMD_START_RX_PAIR" hasLocation="false" isDestination="false">
         <description>Starts receiver pairing.</description>
